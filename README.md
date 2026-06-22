@@ -13,8 +13,8 @@ Steps:
 
 - Upload image
 - image uploaded to resized bucket
-- sns notification
 - cloudwatch logs
+- sns notification
 
 4. terraform destroy
 
@@ -107,6 +107,9 @@ iii) SNS
 <img width="1600" height="900" alt="s3 - 22" src="https://github.com/user-attachments/assets/3d064cf1-5016-4d99-921b-ee2ef9113648" />
 
 <img width="1600" height="900" alt="s3 - 23" src="https://github.com/user-attachments/assets/a1932e81-76aa-4133-8a1e-e851ac5f28be" />
+
+- cloudwatch logs
+
 
 <img width="1600" height="900" alt="s3 - 24" src="https://github.com/user-attachments/assets/beb86cc0-f25e-4832-818a-a1b75c19d7ef" />
 
