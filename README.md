@@ -20,6 +20,13 @@ Steps:
 
 
 
+step 1: terraform apply
+
+plesae change:
+- region
+- email
+- The Lambda layer ARN (ap-south-1:770693421928:layer:Klayers-p39-pillow:1) is for ap-south-1 and Python 3.9. If you change the region, you'll need to find the correct ARN for that region (e.g., from Klayers).
+
 
 
 
