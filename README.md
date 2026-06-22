@@ -1,4 +1,37 @@
 
+
+
+
+Steps:
+1. terraform apply
+2 See Results
+- Buckets
+- Lambda
+- SNS
+3. Test
+- Upload image
+- image uploaded to resized bucket
+- sns notification
+- cloudwatch logs
+4. terraform destroy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <img width="1600" height="900" alt="s3 - 1 " src="https://github.com/user-attachments/assets/f89ca183-e08e-4e08-bd11-94bb20ab4b1d" />
 
 <img width="1600" height="900" alt="s3 - 2" src="https://github.com/user-attachments/assets/19ac178b-48ae-44ed-9348-a17385939262" />
