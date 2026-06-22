@@ -85,6 +85,8 @@ iii) SNS
 
 ### 3. Test
 
+- upload image: 
+
 <img width="1600" height="900" alt="s3 - 15" src="https://github.com/user-attachments/assets/19eac6b2-0a82-4010-b077-5ecb51c26979" />
 
 <img width="1600" height="900" alt="s3 - 16" src="https://github.com/user-attachments/assets/5481fc23-8dc5-4daa-a90c-229060db3283" />
@@ -94,6 +96,9 @@ iii) SNS
 <img width="1600" height="900" alt="s3 - 18" src="https://github.com/user-attachments/assets/05004339-a248-439a-a558-29d63a00c0ab" />
 
 <img width="1600" height="900" alt="s3 - 19" src="https://github.com/user-attachments/assets/e28c917b-133f-47aa-abd4-e3002c0627c3" />
+
+
+- image uploaded to resized bucket
 
 <img width="1600" height="900" alt="s3 - 20" src="https://github.com/user-attachments/assets/24cc2759-0cf4-475a-81fd-fdc814d821ce" />
 
