@@ -1,180 +1,330 @@
+Absolutely. Based on all the articles we've worked on together (EC2 Scheduler, Snapshot Cleanup, IAM Access Analyzer), I think we should keep the same writing style. That consistency becomes part of your personal brand.
 
+Here is a polished version you can copy directly into Medium.
 
+# Automatically Resize Images Using AWS S3, Lambda, SNS, and Terraform
 
+Image processing is a common requirement in modern applications. Whether you're building an e-commerce platform, a portfolio website, or a social media application, users often upload images that need to be resized before being stored or displayed.
 
-Steps:
-1. terraform apply
-2. See Results
-- Buckets
-- Lambda
-- SNS
+Manually resizing images is not practical. It consumes time, increases operational effort, and becomes difficult to manage as the number of uploads grows.
 
-3. Test
+A better approach is to automate the entire workflow.
 
-- Upload image
-- image uploaded to resized bucket
-- cloudwatch logs
-- sns notification
+In this article, we'll build a fully automated, serverless image processing pipeline using AWS and Terraform. Whenever a user uploads an image to Amazon S3, AWS Lambda automatically resizes it, stores the processed image in another S3 bucket, records execution logs in CloudWatch, and sends an email notification through Amazon SNS.
 
-4. terraform destroy
-
-
-
-### step 1: terraform apply
-
-plesae change:
-- region
-- email
-- The Lambda layer ARN (ap-south-1:770693421928:layer:Klayers-p39-pillow:1) is for ap-south-1 and Python 3.9. If you change the region, you'll need to find the correct ARN for that region (e.g., from Klayers).
-
-<img width="1600" height="900" alt="s3 - a " src="https://github.com/user-attachments/assets/4b7492a7-11ee-461e-8c87-45b8a48dc8fd" />
-
-<img width="1600" height="900" alt="s3 - b" src="https://github.com/user-attachments/assets/0a2beeb1-0407-4906-9b38-9821c7d6b751" />
-
-<img width="1600" height="900" alt="s3 - c" src="https://github.com/user-attachments/assets/5bf632c7-6bfd-418d-be5a-803973cc8412" />
-
-<img width="1600" height="900" alt="s3 - d" src="https://github.com/user-attachments/assets/99e958cf-93a7-419b-b480-6d99fb721736" />
-
-<img width="1600" height="900" alt="s3 - g " src="https://github.com/user-attachments/assets/a6203907-ead8-4ea8-89e9-da533abf85db" />
-
-
-
-### 2. See Results
-
-i) 2 Buckets (source and resized)
-
-
-<img width="1600" height="900" alt="s3 - 1 " src="https://github.com/user-attachments/assets/f89ca183-e08e-4e08-bd11-94bb20ab4b1d" />
-
-<img width="1600" height="900" alt="s3 - 2" src="https://github.com/user-attachments/assets/19ac178b-48ae-44ed-9348-a17385939262" />
-
-<img width="1600" height="900" alt="s3 - 3" src="https://github.com/user-attachments/assets/3dae0690-d7ad-4b25-be33-a06cf2500204" />
-
-ii) Lambda
-
-
-<img width="1600" height="900" alt="s3 - 4" src="https://github.com/user-attachments/assets/f2606739-74ba-4b76-9aea-928064e8f71c" />
-
-<img width="1600" height="900" alt="s3 - 6" src="https://github.com/user-attachments/assets/27ff6132-7eb0-45db-9fab-b58304161a7f" />
-
-<img width="1600" height="900" alt="s3 - 7" src="https://github.com/user-attachments/assets/eccf810b-a370-48ff-84c2-b30753763fda" />
-
-<img width="1600" height="900" alt="s3 - 8" src="https://github.com/user-attachments/assets/494f78ff-82af-4c47-a882-9b14b8667d09" />
-
-<img width="1600" height="900" alt="s3 - 9" src="https://github.com/user-attachments/assets/94c3e356-e267-45ac-b467-99fd911a1690" />
-
-iii) SNS
-
-
-
-<img width="1600" height="900" alt="s3 - 10" src="https://github.com/user-attachments/assets/b609b7eb-4b95-41f5-857f-8d0efc3d9d7e" />
-
-<img width="1600" height="900" alt="s3 - 11 - blur " src="https://github.com/user-attachments/assets/e2090ac5-f21e-4897-892a-13cab084051d" />
-
-<img width="1600" height="900" alt="s3 - 11" src="https://github.com/user-attachments/assets/79a129f4-0ee8-460e-89b1-7feba9322452" />
-
-<img width="1600" height="900" alt="s3 - 12" src="https://github.com/user-attachments/assets/fb431e6f-9bef-4b56-a68c-7c545c9b82b0" />
-
-<img width="1600" height="900" alt="s3 - 13" src="https://github.com/user-attachments/assets/ac304b20-2713-460f-8d8a-05e718fd2cb3" />
-
-<img width="1600" height="900" alt="s3 - 14 - blur " src="https://github.com/user-attachments/assets/fc93edf8-0bd5-4a8b-807a-da93b2fc211d" />
-
-<img width="1600" height="900" alt="s3 - 14" src="https://github.com/user-attachments/assets/b1bbe9b4-fcaf-443e-9a77-44d2dac319d7" />
+The entire infrastructure is provisioned using Terraform.
 
 ---
 
-### 3. Test
+# Business Problem
 
-- upload image: 
+Many organizations allow users to upload images such as profile pictures, product photos, or marketing assets.
 
-<img width="1600" height="900" alt="s3 - 15" src="https://github.com/user-attachments/assets/19eac6b2-0a82-4010-b077-5ecb51c26979" />
+These uploaded images are often much larger than required.
 
-<img width="1600" height="900" alt="s3 - 16" src="https://github.com/user-attachments/assets/5481fc23-8dc5-4daa-a90c-229060db3283" />
+Large images increase storage costs, consume additional bandwidth, and negatively impact website performance.
 
-<img width="1600" height="900" alt="s3 - 17" src="https://github.com/user-attachments/assets/e4c16b56-3de7-4b29-afe1-587c98b542e9" />
+As the application grows, manually processing every uploaded image becomes impossible.
 
-<img width="1600" height="900" alt="s3 - 18" src="https://github.com/user-attachments/assets/05004339-a248-439a-a558-29d63a00c0ab" />
-
-<img width="1600" height="900" alt="s3 - 19" src="https://github.com/user-attachments/assets/e28c917b-133f-47aa-abd4-e3002c0627c3" />
-
-
-- image uploaded to resized bucket
-
-<img width="1600" height="900" alt="s3 - 20" src="https://github.com/user-attachments/assets/24cc2759-0cf4-475a-81fd-fdc814d821ce" />
-
-<img width="1600" height="900" alt="s3 - 21" src="https://github.com/user-attachments/assets/3c216e11-24f8-474a-bf6e-ab18af3d327d" />
-
-<img width="1600" height="900" alt="s3 - 22" src="https://github.com/user-attachments/assets/3d064cf1-5016-4d99-921b-ee2ef9113648" />
-
-<img width="1600" height="900" alt="s3 - 23" src="https://github.com/user-attachments/assets/a1932e81-76aa-4133-8a1e-e851ac5f28be" />
-
-- cloudwatch logs
-
-
-<img width="1600" height="900" alt="s3 - 24" src="https://github.com/user-attachments/assets/beb86cc0-f25e-4832-818a-a1b75c19d7ef" />
-
-<img width="1600" height="900" alt="s3 - 25" src="https://github.com/user-attachments/assets/27239319-484e-40a1-8eef-7a8426308f43" />
-
-<img width="1600" height="900" alt="s3 - 26" src="https://github.com/user-attachments/assets/ad5e92da-8e33-4a11-8cb2-5f0cb64b05ec" />
-
-<img width="1600" height="900" alt="s3 - 27 - blur " src="https://github.com/user-attachments/assets/97502153-6490-4e2c-87a3-27e8198e3a71" />
-
-<img width="1600" height="900" alt="s3 - 27 - Copy" src="https://github.com/user-attachments/assets/59378622-36f3-4d06-8242-d96141309fce" />
-
-<img width="1600" height="900" alt="s3 - 27" src="https://github.com/user-attachments/assets/32e10925-9b28-47a6-81ad-62bc11602874" />
-
-### terraform destroy
-
-<img width="1600" height="900" alt="s3 - 28" src="https://github.com/user-attachments/assets/83638ae9-2465-4050-93e7-53f04e179267" />
-
-<img width="1600" height="900" alt="s3 - 29" src="https://github.com/user-attachments/assets/df3508c1-4e25-41cf-8eb3-9e1a97271f5e" />
-
-<img width="1600" height="900" alt="s3 - 33" src="https://github.com/user-attachments/assets/342fcfd5-596a-4d46-b5cf-58a35562b826" />
-
-
-
-### Demo Results
-(Insert your screenshots here — highly recommended)
-
-- Source vs Resized image comparison
-- S3 buckets showing files
-- Lambda execution logs in CloudWatch
-- Sample email notification received
-- Terraform apply output
+Companies need an automated solution that processes images immediately after upload without requiring servers or manual intervention.
 
 ---
 
-### Key Takeaways & Best Practices
-- **Use tags** everywhere for better governance
-- Leverage **Lambda Layers** for dependencies (Pillow in this case)
-- Add error handling, dead-letter queues, and retries for production
-- Monitor costs with AWS Budgets
-- Extend this project: Support multiple resize formats (thumbnail, medium, large), more image types, or add image validation
+# Solution
+
+In this project, we build a serverless event-driven architecture.
+
+Whenever an image is uploaded to an Amazon S3 bucket:
+
+* Amazon S3 triggers an AWS Lambda function.
+* Lambda resizes the uploaded image using the Pillow library.
+* The resized image is stored in a separate S3 bucket.
+* CloudWatch Logs record the execution details.
+* Amazon SNS sends an email notification confirming successful processing.
+
+All AWS resources are created using Terraform.
 
 ---
 
-### Conclusion
-This automated image resizing pipeline is more than a lab — it’s a **production-grade solution** you can proudly showcase in interviews and on your resume.
+# Architecture
 
-It proves your ability to design event-driven, serverless architectures using modern tools.
-
-**Star the repo** if you found this helpful:  
-👉 [https://github.com/mathesh-me/image-resizing-using-s3-lambda-sns](https://github.com/mathesh-me/image-resizing-using-s3-lambda-sns)
-
-What would you like to add next? Multiple image sizes? Slack notifications? Let me know in the comments!
-
-**Follow me for more practical AWS, Terraform, and DevOps hands-on guides.**
-
-*Tags: AWS, Terraform, Lambda, S3, SNS, Serverless, DevOps, Cloud Computing, Image Processing, Automation*
+```
+User Uploads Image
+        │
+        ▼
+Amazon S3 (Source Bucket)
+        │
+        ▼
+AWS Lambda Trigger
+        │
+        ▼
+Resize Image (Pillow)
+        │
+        ▼
+Amazon S3 (Resized Bucket)
+        │
+        ▼
+Amazon SNS
+        │
+        ▼
+Email Notification
+```
 
 ---
 
-**Pro Tips for Ranking on Medium:**
-- Add 10+ relevant screenshots (before/after, console views, email)
-- Use a compelling featured image (create one showing the architecture)
-- Publish Tuesday–Thursday morning
-- Share on LinkedIn, Twitter/X, and relevant Reddit subs right after publishing
+# Tech Stack
 
-This version is optimized for Medium’s algorithm: strong hook, clear value, actionable code, visuals encouragement, and calls-to-action.
+* AWS S3
+* AWS Lambda
+* Amazon SNS
+* Amazon CloudWatch
+* IAM
+* Terraform
+* Python
+* Pillow (Lambda Layer)
 
-Copy, add your screenshots, and publish! Let me know if you need the complete `main.tf` file cleaned up or an architecture diagram description. Good luck — this should drive solid traffic and profile visibility! 🚀
+---
+
+# Prerequisites
+
+Before starting this lab, make sure you have:
+
+* An AWS Account
+* AWS CLI configured
+* Terraform installed
+* Python installed
+* Basic knowledge of AWS services
+
+---
+
+# Step 1 — Deploy the Infrastructure
+
+Run the following Terraform commands.
+
+```bash
+terraform init
+
+terraform plan
+
+terraform apply
+```
+
+During deployment, make the following changes according to your environment.
+
+* Update the AWS Region if you are deploying outside **ap-south-1**.
+* Replace the SNS email address with your own email address.
+* If you deploy to another AWS Region, update the Pillow Lambda Layer ARN because Lambda Layers are region-specific.
+
+After reviewing the execution plan, enter:
+
+```
+yes
+```
+
+Terraform creates:
+
+* Source S3 Bucket
+* Resized Images Bucket
+* Lambda Function
+* IAM Role
+* IAM Policies
+* SNS Topic
+* SNS Subscription
+* Lambda Permission
+* Bucket Notification
+
+*(Insert your Terraform screenshots here.)*
+
+---
+
+# Step 2 — Verify the Infrastructure
+
+After Terraform finishes successfully, verify that all AWS resources have been created.
+
+## Verify the S3 Buckets
+
+Terraform creates two S3 buckets.
+
+The first bucket stores the original uploaded images.
+
+The second bucket stores the resized images generated by Lambda.
+
+*(Insert S3 screenshots.)*
+
+---
+
+## Verify the Lambda Function
+
+Open the Lambda console.
+
+You should see the newly created Lambda function.
+
+Review the following:
+
+* Function Configuration
+* Runtime
+* Environment Variables
+* Trigger
+* IAM Execution Role
+
+*(Insert Lambda screenshots.)*
+
+---
+
+## Verify the SNS Topic
+
+Terraform also creates an SNS Topic and subscribes your email address.
+
+Open your email inbox and confirm the subscription.
+
+Without confirming the subscription, SNS cannot deliver notifications.
+
+*(Insert SNS screenshots.)*
+
+---
+
+# Step 3 — Test the Complete Workflow
+
+Now it's time to verify the end-to-end automation.
+
+Upload any image into the Source S3 Bucket.
+
+*(Insert upload screenshots.)*
+
+Immediately after the upload:
+
+* Amazon S3 triggers Lambda.
+* Lambda resizes the image.
+* The resized image is saved in the destination bucket.
+* CloudWatch Logs record the execution.
+* Amazon SNS sends an email notification.
+
+---
+
+## Verify the Resized Image
+
+Open the destination bucket.
+
+You should see the processed image automatically created by Lambda.
+
+Compare the original and resized images.
+
+*(Insert screenshots.)*
+
+---
+
+## Verify CloudWatch Logs
+
+Open CloudWatch Logs.
+
+Navigate to the Log Group for your Lambda function.
+
+Verify that the execution completed successfully.
+
+CloudWatch helps troubleshoot any issues during image processing.
+
+*(Insert screenshots.)*
+
+---
+
+## Verify the Email Notification
+
+Finally, check your inbox.
+
+Amazon SNS should send an email confirming that the image has been successfully processed.
+
+*(Insert screenshots.)*
+
+---
+
+# Clean Up Resources
+
+To avoid unnecessary AWS charges, delete all resources after completing the lab.
+
+Run:
+
+```bash
+terraform destroy
+```
+
+Review the execution plan.
+
+Type:
+
+```
+yes
+```
+
+Terraform removes all AWS resources that were created during this project.
+
+*(Insert destroy screenshots.)*
+
+---
+
+# Project Outcome
+
+By the end of this lab, you have successfully built a complete event-driven image processing pipeline.
+
+Whenever a user uploads an image:
+
+* The image is automatically resized.
+* The processed image is stored in another S3 bucket.
+* Execution logs are generated in CloudWatch.
+* An email notification is delivered through Amazon SNS.
+
+No manual intervention is required.
+
+---
+
+# Best Practices
+
+Although this project is designed as a learning lab, several improvements can make it production-ready.
+
+* Use S3 Versioning.
+* Enable Bucket Encryption.
+* Enable Dead Letter Queues (DLQ).
+* Add Lambda retries.
+* Validate uploaded file types.
+* Support multiple image sizes.
+* Configure AWS Budgets to monitor costs.
+* Apply least-privilege IAM permissions.
+
+---
+
+# What You Learned
+
+In this project you learned how to:
+
+* Provision AWS infrastructure using Terraform.
+* Trigger Lambda automatically from Amazon S3.
+* Process images using the Pillow library.
+* Store processed images in another S3 bucket.
+* Monitor executions using CloudWatch Logs.
+* Send notifications with Amazon SNS.
+* Build an event-driven serverless application.
+
+---
+
+# Conclusion
+
+Building serverless applications is one of the most valuable skills for cloud engineers.
+
+Instead of managing servers, operating systems, or background services, AWS automatically responds to events and executes your code only when required.
+
+In this project, we combined Amazon S3, AWS Lambda, Amazon SNS, CloudWatch, IAM, and Terraform to build an automated image processing pipeline that demonstrates real-world cloud automation.
+
+This project is an excellent addition to any AWS or DevOps portfolio because it showcases Infrastructure as Code, serverless architecture, event-driven design, automation, monitoring, and cloud-native development.
+
+If you found this article helpful, consider giving the GitHub repository a ⭐ and following me for more hands-on AWS, Terraform, and DevOps projects.
+
+## My suggestion
+
+Bilal, I genuinely think this is **better than your previous articles** because:
+
+* It starts with a **business problem** instead of immediately jumping into Terraform.
+* It explains **why** a company would build this solution.
+* Every section has a clear purpose.
+* Recruiters can quickly understand the architecture and the value of the project.
+* It follows the same structure as your EC2 Scheduler and EBS Snapshot Cleanup articles, helping you build a consistent technical writing style across your Medium profile.
+
+I think if you continue publishing articles in this format, your Medium profile will look much more like that of a cloud engineer documenting production-inspired solutions rather than someone simply sharing lab notes.
