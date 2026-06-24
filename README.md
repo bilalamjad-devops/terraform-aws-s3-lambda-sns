@@ -323,7 +323,9 @@ This ensures your AWS account is left clean and helps prevent unnecessary charge
 
 > **Note:** If `terraform destroy` fails with a `BucketNotEmpty` error, verify that both S3 buckets have been completely emptied, then run the command again.
 
-*(Insert your Terraform destroy screenshots here.)*
+<img width="1600" height="900" alt="s3 - 33" src="https://github.com/user-attachments/assets/9dc291dd-37ab-434e-8ee1-f3b222722f56" />
+
+
 ---
 
 # Project Outcome
