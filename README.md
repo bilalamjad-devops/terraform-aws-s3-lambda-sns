@@ -131,7 +131,7 @@ Terraform creates:
 * Bucket Notification
 
 
-*(Insert your Terraform screenshots here.)*
+<img width="1600" height="900" alt="s3 - d" src="https://github.com/user-attachments/assets/2cec690f-1081-4e14-a43c-f3d1992aea1f" />
 
 
 ---
