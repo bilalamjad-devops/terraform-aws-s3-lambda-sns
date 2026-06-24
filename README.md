@@ -286,28 +286,44 @@ CloudWatch helps troubleshoot any issues during image processing.
 
 ---
 
-# Clean Up Resources
+## Clean Up Resources
 
 To avoid unnecessary AWS charges, delete all resources after completing the lab.
 
-Run:
+**Important:** Terraform cannot delete an S3 bucket unless it is empty.
+
+Before running `terraform destroy`:
+
+1. Open the **Source S3 Bucket** and delete all uploaded images.
+2. Open the **Resized S3 Bucket** and delete all processed images.
+3. Empty both buckets completely.
+
+Once both buckets are empty, run:
 
 ```bash
 terraform destroy
 ```
 
-Review the execution plan.
+Review the execution plan, then type:
 
-Type:
-
-```
+```text
 yes
 ```
 
-Terraform removes all AWS resources that were created during this project.
+Terraform will remove all AWS resources created during this project, including:
 
-*(Insert destroy screenshots.)*
+* S3 Buckets
+* Lambda Function
+* IAM Role and Policy
+* SNS Topic and Email Subscription
+* Lambda Permission
+* S3 Bucket Notification
 
+This ensures your AWS account is left clean and helps prevent unnecessary charges.
+
+> **Note:** If `terraform destroy` fails with a `BucketNotEmpty` error, verify that both S3 buckets have been completely emptied, then run the command again.
+
+*(Insert your Terraform destroy screenshots here.)*
 ---
 
 # Project Outcome
