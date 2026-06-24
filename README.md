@@ -94,6 +94,53 @@ Before starting this lab, make sure you have:
 
 ---
 
+
+# Steps:
+
+Step 1 — Deploy the Infrastructure
+
+Step 2 — Verify the Infrastructure
+ - Step 2 — Verify the Infrastructure
+ - Verify the Lambda Function
+ - Verify the SNS Topic
+
+Step 3 — Test the Complete Workflow
+ - Upload any image into the Source S3 Bucket.
+ - Verify the Resized Image
+ - Verify the Email Notification
+ - Verify CloudWatch Logs
+
+Clean Up Resources
+
+Project Outcome
+
+Best Practices
+
+What You Learned
+
+Conclusion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
 # Step 1 — Deploy the Infrastructure
 
 Run the following Terraform commands.
