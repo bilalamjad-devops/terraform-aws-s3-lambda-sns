@@ -213,15 +213,26 @@ Now it's time to verify the end-to-end automation.
 
 Upload any image into the Source S3 Bucket.
 
-*(Insert upload screenshots.)*
+
+<img width="1600" height="900" alt="s3 - 15" src="https://github.com/user-attachments/assets/faa484d0-842a-4c41-995e-fc7abaa04a92" />
+
+<img width="1600" height="900" alt="s3 - 16" src="https://github.com/user-attachments/assets/c182da79-4a1c-477c-a2cd-99793f455104" />
+
+<img width="1600" height="900" alt="s3 - 17" src="https://github.com/user-attachments/assets/043f7e1a-f49e-4128-a7f9-62542bc73915" />
+
+<img width="1600" height="900" alt="s3 - 18" src="https://github.com/user-attachments/assets/86f53bbd-df6c-4717-b077-93e83bf119b7" />
+
+<img width="1600" height="900" alt="s3 - 19" src="https://github.com/user-attachments/assets/5d1707ff-ebda-40be-a37c-2fa868d1cb71" />
+
+
 
 Immediately after the upload:
 
 * Amazon S3 triggers Lambda.
 * Lambda resizes the image.
 * The resized image is saved in the destination bucket.
-* CloudWatch Logs record the execution.
 * Amazon SNS sends an email notification.
+* CloudWatch Logs record the execution.
 
 ---
 
