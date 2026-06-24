@@ -100,7 +100,6 @@ Before starting this lab, make sure you have:
 Step 1 — Deploy the Infrastructure
 
 Step 2 — Verify the Infrastructure
- - Step 2 — Verify the Infrastructure
  - Verify the Lambda Function
  - Verify the SNS Topic
 
