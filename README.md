@@ -7,7 +7,7 @@ Manually resizing images is not practical. It consumes time, increases operation
 
 A better approach is to automate the entire workflow.
 
-In this article, we'll build a fully automated, serverless image processing pipeline using AWS and Terraform. Whenever a user uploads an image to Amazon S3, AWS Lambda automatically resizes it, stores the processed image in another S3 bucket, records execution logs in CloudWatch, and sends an email notification through Amazon SNS.
+In this article, we'll build a fully automated, serverless image processing pipeline using AWS and Terraform. Whenever a user uploads an image to Amazon S3, AWS Lambda automatically resizes it, stores the processed image in another S3 bucket,  and sends an email notification through Amazon SNS, and records execution logs in CloudWatch.
 
 The entire infrastructure is provisioned using Terraform.
 
@@ -36,8 +36,8 @@ Whenever an image is uploaded to an Amazon S3 bucket:
 * Amazon S3 triggers an AWS Lambda function.
 * Lambda resizes the uploaded image using the Pillow library.
 * The resized image is stored in a separate S3 bucket.
-* CloudWatch Logs record the execution details.
 * Amazon SNS sends an email notification confirming successful processing.
+* CloudWatch Logs record the execution details.
 
 All AWS resources are created using Terraform.
 
