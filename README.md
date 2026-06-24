@@ -254,7 +254,24 @@ Compare the original and resized images.
 <img width="1600" height="900" alt="s3 - 23" src="https://github.com/user-attachments/assets/8cbcea8a-44b6-4b73-aeda-ed62f778d81d" />
 
 
+
+
 ---
+
+## Verify the Email Notification
+
+Finally, check your inbox.
+
+Amazon SNS should send an email confirming that the image has been successfully processed.
+
+<img width="1600" height="900" alt="s3 - 27" src="https://github.com/user-attachments/assets/4b298388-caa3-4e87-970b-1516106dd0f1" />
+
+
+---
+
+
+
+
 
 ## Verify CloudWatch Logs
 
@@ -268,15 +285,8 @@ CloudWatch helps troubleshoot any issues during image processing.
 
 *(Insert screenshots.)*
 
----
 
-## Verify the Email Notification
 
-Finally, check your inbox.
-
-Amazon SNS should send an email confirming that the image has been successfully processed.
-
-*(Insert screenshots.)*
 
 ---
 
