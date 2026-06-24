@@ -194,7 +194,16 @@ Open your email inbox and confirm the subscription.
 
 Without confirming the subscription, SNS cannot deliver notifications.
 
-*(Insert SNS screenshots.)*
+
+<img width="1600" height="900" alt="s3 - 10" src="https://github.com/user-attachments/assets/3da7b632-07b1-48bd-864e-3921e407edd7" />
+
+<img width="1600" height="900" alt="s3 - 11" src="https://github.com/user-attachments/assets/db7b0cdd-99ba-451a-8f0e-49bce52c67d7" />
+
+<img width="1600" height="900" alt="s3 - 12" src="https://github.com/user-attachments/assets/941113e9-5470-4645-8fbd-f5a660c204d2" />
+
+<img width="1600" height="900" alt="s3 - 13" src="https://github.com/user-attachments/assets/e988d8bb-8009-4ba7-9ec4-4d28e36d4d78" />
+
+
 
 ---
 
