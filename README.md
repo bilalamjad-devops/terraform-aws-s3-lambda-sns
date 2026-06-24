@@ -1,5 +1,5 @@
 
-# Automatically Resize Images Using AWS S3, Lambda, SNS, and Terraform
+# Automatically Resize Images Using Terraform, AWS S3, Lambda, and SNS
 
 Image processing is a common requirement in modern applications. Whether you're building an e-commerce platform, a portfolio website, or a social media application, users often upload images that need to be resized before being stored or displayed.
 
