@@ -244,7 +244,15 @@ You should see the processed image automatically created by Lambda.
 
 Compare the original and resized images.
 
-*(Insert screenshots.)*
+
+<img width="1600" height="900" alt="s3 - 20" src="https://github.com/user-attachments/assets/0d99c320-80d0-479c-bdab-61177c9bc422" />
+
+<img width="1600" height="900" alt="s3 - 21" src="https://github.com/user-attachments/assets/3ef40b1a-cac3-437e-b84c-36c21eaea52c" />
+
+<img width="1600" height="900" alt="s3 - 22" src="https://github.com/user-attachments/assets/65c69d90-b6ea-4fe4-8d62-17e6036a8e96" />
+
+<img width="1600" height="900" alt="s3 - 23" src="https://github.com/user-attachments/assets/8cbcea8a-44b6-4b73-aeda-ed62f778d81d" />
+
 
 ---
 
