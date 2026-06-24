@@ -1,6 +1,3 @@
-Absolutely. Based on all the articles we've worked on together (EC2 Scheduler, Snapshot Cleanup, IAM Access Analyzer), I think we should keep the same writing style. That consistency becomes part of your personal brand.
-
-Here is a polished version you can copy directly into Medium.
 
 # Automatically Resize Images Using AWS S3, Lambda, SNS, and Terraform
 
