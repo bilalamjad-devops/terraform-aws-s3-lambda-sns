@@ -130,7 +130,9 @@ Terraform creates:
 * Lambda Permission
 * Bucket Notification
 
+
 *(Insert your Terraform screenshots here.)*
+
 
 ---
 
